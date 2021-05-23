@@ -10,7 +10,7 @@ const CocktailsContainer = () => {
 
   const dispatch = useDispatch();
   const cocktails = useSelector((state)=> Object.values(state.cocktails));
-console.log(cocktails[0])
+
   useEffect(()=>{
     dispatch(getCocktails());
   }, [dispatch])

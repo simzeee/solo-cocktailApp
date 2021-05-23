@@ -15,4 +15,9 @@ router.get('/', asyncHandler(async (req, res)=>{
   res.json(cocktails)
 }))
 
+router.post('/', asyncHandler(async (req, res)=>{
+  const id = await Cocktail.create(req.body);
+  return res.json(`${req.baseUrl}/${id}`)
+}))
+
 module.exports = router

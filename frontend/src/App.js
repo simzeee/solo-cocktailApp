@@ -5,6 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import CocktailsContainer from "./components/Cocktails";
+import CreateCocktailForm from "./components/CocktailsCreateForm"
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path='/cocktails'>
             <CocktailsContainer/>
+          </Route>
+          <Route path='/create' exact>
+          <CreateCocktailForm/>
           </Route>
         </Switch>
       )}
