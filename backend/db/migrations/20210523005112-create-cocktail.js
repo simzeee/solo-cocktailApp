@@ -1,32 +1,35 @@
 'use strict';
-
-const { sequelize } = require("../models");
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('Cocktails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING(30),
-        allowNull: false,
-        unique: true,
-      },
-      email: {
-        type: Sequelize.STRING(256),
-        allowNull: false,
-        unique: true,
-      },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      profileImageUrl: {
+      description: {
+        allowNull: false,
         type: Sequelize.STRING
+      },
+      imageUrl: {
+        type: Sequelize.STRING
+      },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Users'}
+      },
+      commentId: {
+        type: Sequelize.STRING
+      },
+      classic: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +44,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Cocktails');
   }
 };
