@@ -1,6 +1,52 @@
+body{
+  background-color: rgb(143, 143, 143);
+}
+
 .cocktailMain {
   display: flex;
   /* background-color: red; */
   /* flex-direction: column; */
   justify-content: center;
+}
+
+.cocktailContainer{
+display: flex;
+/* align-items: center; */
+flex-direction: column;
+/* width: 300px; */
+}
+
+
+.cocktailContainer img {
+  position: relative;
+  /* height: 40%; */
+  margin-left: 10px;
+}
+
+.actualCocktail {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: aliceblue;
+  margin-top: 10%;
+  background-color: rgba(0, 0, 0, 0.954);
+  opacity: .82;
+  border-radius: 8px;
+  box-shadow: 10.3px 6.8px rgba(255, 255, 255, 0.639);
+}
+
+.cocktailName {
+  margin-left: 5px;
+  
+}
+
+.cocktailContainer button {
+  border-radius: 5px;
+  /* margin-left: 5px;
+  margin-right: 5px; */
+  margin: 0 5px 5px 0;
+  /* padding-right: 5px; */
+  opacity: 0.56;
+  background-color:whitesmoke
+
 }

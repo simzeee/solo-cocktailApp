@@ -1,14 +1,26 @@
 .navMain {
   display: flex;
   /* align-items: center; */
-  justify-content: right;
+  /* justify-content: right; */
   width: 100%;
+  
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 .navContainer {
+  /* border: solid 2px; */
+  
+  background-color: black;
+  opacity: .78;
+  border-radius: 5px;
+  height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
 }
 

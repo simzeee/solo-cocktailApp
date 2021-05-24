@@ -66,7 +66,7 @@ export const createCocktail = (cocktail) => async (dispatch) => {
 };
 
 export const deleteCocktail = (cocktailId) => async (dispatch) => {
-  console.log(cocktailId)
+  console.log('cocktailId', cocktailId)
   const response = await csrfFetch(`/api/cocktails/${cocktailId}`,
   {
     method: 'DELETE',
@@ -74,7 +74,8 @@ export const deleteCocktail = (cocktailId) => async (dispatch) => {
 
 if (response.ok){
   const cocktail = await response.json();
-  dispatch(deleteOneCocktail(cocktail.id))
+  console.log("This is the cocktail:", cocktail)
+  dispatch(deleteOneCocktail(cocktail))
 }
 
 }

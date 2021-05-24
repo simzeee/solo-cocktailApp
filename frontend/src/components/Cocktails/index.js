@@ -12,11 +12,9 @@ const CocktailsContainer = () => {
   const dispatch = useDispatch();
   const cocktails = useSelector((state)=> Object.values(state.cocktails));
 
-  const handleDelete = async (e) => {
-    e.preventDefault()
+  const handleDelete = (id) => {
 
-  
-    await dispatch(deleteCocktail(e.target.id))
+   dispatch(deleteCocktail(id))
 
   }
   
@@ -28,20 +26,16 @@ const CocktailsContainer = () => {
 return (
   <div className={styles.cocktailMain}>
    {cocktails && (
-          <div>
-            <h1>{cocktails.name} </h1>
+          <div className={styles.cocktailContainer}>
             {cocktails.map((cocktail)=>(
-            <div key={cocktail.id}>{cocktail.name}</div>  
-            ))}
-            <h2>Image</h2>
-            {cocktails.map((cocktail)=>(
-              <div>
+              <div className={styles.actualCocktail}>
+                <div className={styles.cocktailName} key={cocktail.id}>{cocktail.name}</div> 
                <img key={cocktail.id}
                style={{ width: "200px" }}
                src={cocktail.imageUrl}
                alt="profile"
              />
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={()=>handleDelete(cocktail.id)}>Delete</button>
              </div>
             ))}
           </div>

@@ -1,0 +1,17 @@
+.profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 100px; */
+  margin-top: 15%;
+  position: relative;
+  background-color: honeydew;
+  height: 200px;
+  /* margin-bottom: 5px; */
+}
+
+.profile-dropdown > div {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin: 5px 3px 7px 3px;
+}

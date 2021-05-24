@@ -33,6 +33,7 @@ const CreateCocktailForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const payload = {
       
       name,

@@ -13,8 +13,8 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <>
-      <ProfileButton user={sessionUser} />
       <NavLink to="/create">Create</NavLink>
+      <ProfileButton user={sessionUser} />
       </>
     );
   } else {
@@ -29,12 +29,12 @@ function Navigation({ isLoaded }){
   return (
     <div className={styles.navMain}>
       <div className={styles.navContainer}>
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
+
+        <div className={styles.navContainer}>
+        <NavLink exact to="/cocktails">Cocktails</NavLink>
         {isLoaded && sessionLinks}
-      </li>
-    </ul>
+        </div>
+
     </div>
     </div>
   );
