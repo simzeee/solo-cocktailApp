@@ -34,6 +34,12 @@ router.patch('/:id', asyncHandler(async (req, res)=>{
 
   const cocktailToUpdate = await Cocktail.findByPk(id)
 
+  cocktailToUpdate.update({
+    name, description, imageUrl, classic
+  })
+
+  return res.json(cocktailToUpdate)
+
 }))
 
 
