@@ -28,6 +28,15 @@ router.post('/', asyncHandler(async (req, res)=>{
   })
 }))
 
+router.patch('/:id', asyncHandler(async (req, res)=>{
+  const id = req.params.id
+  const {name, description,imageUrl, classic} = req.body
+
+  const cocktailToUpdate = await Cocktail.findByPk(id)
+
+}))
+
+
 router.delete("/:id", asyncHandler(async (req, res)=>{
   const id = req.params.id
   // console.log("LOOK HERE HERE HERE", id)
@@ -36,7 +45,8 @@ router.delete("/:id", asyncHandler(async (req, res)=>{
 
 
   if (cocktailToDelete){
-    await cocktailToDelete.destroy();
+   await cocktailToDelete.destroy();
+    return res.json(id)
   } else {
     console.log('that is not there')
   }
