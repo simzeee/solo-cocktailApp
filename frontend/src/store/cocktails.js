@@ -1,5 +1,8 @@
+import {csrfFetch} from './csrf'
+
 const SET_COCKTAILS = 'cocktails/SET_COCKTAILS';
 const ADD_COCKTAIL = 'cocktails/ADD_COCKTAIL';
+const DELETE_COCKTAIL = 'cocktails/DElETE_COCKTAIL'
 
 const setCocktails = (cocktails) => ({
   type: SET_COCKTAILS,
@@ -11,6 +14,11 @@ const addOneCocktail = (cocktail) => ({
   cocktail,
 });
 
+const deleteOneCocktail = (cocktailId) => ({
+  type: DELETE_COCKTAIL,
+  cocktailId
+})
+
 export const getCocktails = () => async (dispatch) => {
   const res = await fetch('/api/cocktails');
 
@@ -19,14 +27,35 @@ export const getCocktails = () => async (dispatch) => {
   dispatch(setCocktails(cocktails));
 };
 
-export const createCocktail = (data) => async (dispatch) => {
-  const response = await fetch('/api/cocktails', 
+// export const createLand =  (land) => async (dispatch) => {
+//   const {name, description, userId} = land;
+//   const response = await csrfFetch("/api/lands", {
+//     method: "POST",
+//     body: JSON.stringify({
+//       name,
+//       description,
+//       userId,
+//     }),
+//   });
+//   const data = await response.json();
+// }
+
+
+export const createCocktail = (cocktail) => async (dispatch) => {
+  const {name, description, imageUrl, classic, userId} = cocktail
+  const response = await csrfFetch('/api/cocktails', 
   {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({
+      name,
+      description,
+      imageUrl,
+      classic,
+      userId
+    })
   }
   );
   if(response.ok){
@@ -36,34 +65,42 @@ export const createCocktail = (data) => async (dispatch) => {
   }
 };
 
+export const deleteCocktail = (cocktailId) => async (dispatch) => {
+  console.log(cocktailId)
+  const response = await csrfFetch(`/api/cocktails/${cocktailId}`,
+  {
+    method: 'DELETE',
+    })
+
+if (response.ok){
+  const cocktail = await response.json();
+  dispatch(deleteOneCocktail(cocktail.id))
+}
+
+}
+
 const initialState = {};
 
 const cocktailsReducer = (state = initialState, action) => {
+  let newState
   switch (action.type) {
     case SET_COCKTAILS:
-      const newState = { ...state };
+      newState = { ...state };
       action.cocktails.forEach((cocktail) => {
         newState[cocktail.id] = cocktail;
       });
       return newState;
       case ADD_COCKTAIL:
-        if (!state[action.cocktail.id]) {
-          const newState = {
-            ...state,
-            [action.cocktail.id]: action.cocktail
-          };
-          const cocktailList = newState.cocktails.map(id => newState[id]);
-          cocktailList.push(action.cocktail);
-          newState.cocktails = cocktailList
+        newState = {...state}
+         const cocktail = action.cocktail
+            newState[cocktail.cocktail.id] = cocktail
+            return newState
+        case DELETE_COCKTAIL: {
+        newState = {...state};
+          delete newState[action.cocktailId];
           return newState
         }
-        return {
-          ...state,
-          [action.cocktailList.id]: {
-            ...state[action.pokemon.id],
-            ...action.pokemon,
-          }
-        }
+
     default:
       return state;
   }

@@ -1,0 +1,14 @@
+.navMain {
+  display: flex;
+  /* align-items: center; */
+  justify-content: right;
+  width: 100%;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
