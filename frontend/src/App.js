@@ -6,6 +6,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import CocktailsContainer from "./components/Cocktails";
 import CreateCocktailForm from "./components/CocktailsCreateForm"
+import EditCocktailForm from "./components/EditCocktailForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path='/create' exact>
           <CreateCocktailForm/>
+          </Route>
+          <Route path='/edit'>
+            <EditCocktailForm/>
           </Route>
         </Switch>
       )}

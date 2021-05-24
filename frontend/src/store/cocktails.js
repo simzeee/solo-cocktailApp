@@ -3,6 +3,7 @@ import {csrfFetch} from './csrf'
 const SET_COCKTAILS = 'cocktails/SET_COCKTAILS';
 const ADD_COCKTAIL = 'cocktails/ADD_COCKTAIL';
 const DELETE_COCKTAIL = 'cocktails/DElETE_COCKTAIL'
+const EDIT_COCKTAIL = 'cocktails/EDIT_COCKTAIL'
 
 const setCocktails = (cocktails) => ({
   type: SET_COCKTAILS,
@@ -16,6 +17,11 @@ const addOneCocktail = (cocktail) => ({
 
 const deleteOneCocktail = (cocktailId) => ({
   type: DELETE_COCKTAIL,
+  cocktailId
+})
+
+const editOneCocktail = (cocktailId) => ({
+  type: EDIT_COCKTAIL,
   cocktailId
 })
 
@@ -65,6 +71,29 @@ export const createCocktail = (cocktail) => async (dispatch) => {
   }
 };
 
+export const editCocktail = (cocktail) => async (dispatch) => {
+  const {name, description, imageUrl, classic, userId} = cocktail
+
+  const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, //not sure about this
+  {
+    method: 'PATCH',
+    body: JSON.stringify({
+      name,
+      description,
+      imageUrl,
+      classic,
+      userId
+    })
+  }
+);
+
+if(response.ok){
+  const editedCocktail = await response.json();
+  dispatch(editOneCocktail(editedCocktail))
+  return editedCocktail
+}
+}
+
 export const deleteCocktail = (cocktailId) => async (dispatch) => {
   console.log('cocktailId', cocktailId)
   const response = await csrfFetch(`/api/cocktails/${cocktailId}`,
@@ -101,7 +130,12 @@ const cocktailsReducer = (state = initialState, action) => {
           delete newState[action.cocktailId];
           return newState
         }
-
+        case EDIT_COCKTAIL: {
+          newState = {...state};
+          const editedCocktail = action.cocktailId
+            newState[editedCocktail.id] = editedCocktail
+            return newState
+        }
     default:
       return state;
   }

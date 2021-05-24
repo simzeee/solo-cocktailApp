@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCocktail} from '../../store/cocktails'
+import {NavLink } from 'react-router-dom'
 
 import styles from './Cocktails.module.css'
 
@@ -36,6 +37,7 @@ return (
                alt="profile"
              />
             <button onClick={()=>handleDelete(cocktail.id)}>Delete</button>
+            <NavLink to="/edit"><button>Edit</button></NavLink>
              </div>
             ))}
           </div>
