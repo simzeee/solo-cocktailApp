@@ -1,40 +1,35 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCocktail} from '../../store/cocktails'
-import {NavLink } from 'react-router-dom'
-import CocktailCard from './CocktailCard'
+import { deleteCocktail } from '../../store/cocktails';
+import { NavLink } from 'react-router-dom';
+import CocktailCard from './CocktailCard';
+import CocktailDescription from '../CocktailDescription/index';
 
-import styles from './Cocktails.module.css'
+import styles from './Cocktails.module.css';
 
 import { getCocktails } from '../../store/cocktails';
 
-
 const CocktailsContainer = () => {
-
   const dispatch = useDispatch();
-  const cocktails = useSelector((state)=> Object.values(state.cocktails));
+  const cocktails = useSelector((state) => Object.values(state.cocktails));
 
-  const handleDelete = (id) => {
-
-   dispatch(deleteCocktail(id))
-   
-
-  }
-  
-
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getCocktails());
-  }, [dispatch])
+  }, [dispatch]);
 
-return (
-  <div className={styles.cocktailMain}>
-   {cocktails && (
+  return (
+    <>
+      <div className={styles.cocktailMain}>
+        {cocktails && (
           <div className={styles.cocktailContainer}>
-            {cocktails.map((cocktail)=><CocktailCard cocktail={cocktail} key={cocktail.id}/>)}
+            {cocktails.map((cocktail) => (
+              <CocktailCard cocktail={cocktail} key={cocktail.id} />
+            ))}
           </div>
         )}
-  </div>
-)
-}
+      </div>
+    </>
+  );
+};
 
-export default CocktailsContainer
+export default CocktailsContainer;

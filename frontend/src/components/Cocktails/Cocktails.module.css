@@ -7,6 +7,7 @@ body{
   /* background-color: red; */
   /* flex-direction: column; */
   justify-content: center;
+  align-items: baseline;
 }
 
 .cocktailContainer{
@@ -37,6 +38,7 @@ flex-direction: column;
 
 .cocktailName {
   margin-left: 5px;
+  /* display: none; */
   
 }
 
@@ -49,4 +51,10 @@ flex-direction: column;
   opacity: 0.56;
   background-color:whitesmoke
 
+}
+
+.cocktailDescription{
+  background-color: red;
+  display: flex;
+  justify-content: right;
 }
