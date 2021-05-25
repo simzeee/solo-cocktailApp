@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { editUser } from "../../store/session";
+import { deleteUser } from "../../store/session"
 
 // import './SignupForm.css';
 
@@ -16,9 +17,9 @@ function EditUserForm() {
 
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(user.password);
-  const [profileImageUrl, setImage] = useState(user.profileImageUrl);
-  // for multuple file upload
+  const [password, setPassword] = useState('');
+  const [profileImageUrl, setImage] = useState('');
+  // for multiple file upload
   //   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState([]);
 
@@ -27,33 +28,34 @@ function EditUserForm() {
   // const updateEmail = (e) => setEmail(e.target.value)
   // const updatePassword = (e) => setPassword(e.target.value)
   // const updateImage = (e) => setPassword(e.target.value)
+  const logout = (e) => {
+    dispatch(sessionActions.logout());
+  };
 
+
+const handleDelete = (id) =>{
+
+  dispatch(deleteUser(id))
+  logout()
+
+  history.push('/cocktails');
+
+
+}
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // let newErrors = [];
-    // dispatch(editUser({ username, email, password, image }))
-    //   .then(() => {
-    //     setUsername("");
-    //     setEmail("");
-    //     setPassword("");
-    //     setImage(null);
-    //   })
-    //   .catch(async (res) => {
-    //     const data = await res.json();
-    //     if (data && data.errors) {
-    //       newErrors = data.errors;
-    //       setErrors(newErrors);
-    //     }
-    //   });
+ 
 
     const payload = {
       userId,
       username,
       email,
       password,
-      profileImageUrl
+      file: profileImageUrl
     }
+    // const file = e.target.files[0];
+    // if (file) setImage(file);
 
     let editedUser = dispatch(editUser(payload));
 
@@ -62,6 +64,8 @@ function EditUserForm() {
     }
 
   };
+
+
 
   const updateFile = (e) => {
     const file = e.target.files[0];
@@ -131,6 +135,7 @@ function EditUserForm() {
           </div>
         )}
       </div>
+        <button onClick={()=>handleDelete(user.id)}>Delete</button>
     </div>
   );
 };

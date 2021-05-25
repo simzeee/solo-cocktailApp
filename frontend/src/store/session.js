@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
+const DELETE_USER = 'session/deleteUser';
 
 const setUser = (user) => {
   return {
@@ -15,6 +16,11 @@ const removeUser = () => {
     type: REMOVE_USER,
   };
 };
+
+const deleteOneUser = (userId) => ({
+  type: DELETE_USER,
+  userId,
+});
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
@@ -30,49 +36,34 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
-export const restoreUser = () => async dispatch => {
+export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
 };
 
-// export const signup = (user) => async (dispatch) => {
-//   const { username, email, password } = user;
-//   const response = await csrfFetch("/api/users", {
-//     method: "POST",
-//     body: JSON.stringify({
-//       username,
-//       email,
-//       password,
-//     }),
-//   });
-//   const data = await response.json();
-//   dispatch(setUser(data.user));
-//   return response;
-// };
-
 export const createUser = (user) => async (dispatch) => {
   const { images, image, username, email, password } = user;
   const formData = new FormData();
-  formData.append("username", username);
-  formData.append("email", email);
-  formData.append("password", password);
+  formData.append('username', username);
+  formData.append('email', email);
+  formData.append('password', password);
 
   // for multiple files
   if (images && images.length !== 0) {
     for (var i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
+      formData.append('images', images[i]);
     }
   }
 
   // for single file
-  if (image) formData.append("image", image);
+  if (image) formData.append('image', image);
 
   const res = await csrfFetch(`/api/users/`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
     body: formData,
   });
@@ -81,40 +72,61 @@ export const createUser = (user) => async (dispatch) => {
   dispatch(setUser(data.user));
 };
 
-
 export const editUser = (user) => async (dispatch) => {
+  const { username, email, password, userId, file } = user;
+  if (file) {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('image', file);
+    formData.append('userId', userId);
 
-  const { images, image, username, email, password, userId } = user;
+    const response = await csrfFetch(`/api/users/withImage/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    });
 
-
-  const response = await csrfFetch(`/api/users/${userId}`,  {
-
-    method: "PATCH",
-    body: JSON.stringify({
-      images,
-      image,
-      username,
-      email,
-      password,
-      userId
-    })
-  })
-  
-  if(response.ok){
-    const editedUser = await response.json()
-    dispatch(setUser(editedUser))
-    return editedUser
+    if (response.ok) {
+      const editedUser = await response.json();
+      dispatch(setUser(editedUser));
+      return editedUser;
+    }
   }
+  else {
+    const response = await csrfFetch(`/api/users/${userId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(user)
+    });
+    if (response.ok) {
+      const editedUser = await response.json();
+      dispatch(setUser(editedUser));
+      return editedUser;
+    }
+  }
+};
 
-}
-
-export const logout = () => async (dispatch) =>{
+export const logout = () => async (dispatch) => {
   const response = await csrfFetch('/api/session', {
     method: 'DELETE',
-  })
+  });
   dispatch(removeUser());
   return response;
-}
+};
+
+export const deleteUser = (userId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/users/${userId}`, {
+    method: 'DELETE',
+  });
+
+  if (response.ok) {
+    const user = await response.json();
+    dispatch(deleteOneUser(user));
+  }
+};
 
 const initialState = { user: null };
 

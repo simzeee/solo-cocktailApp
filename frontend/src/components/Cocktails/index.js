@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCocktail} from '../../store/cocktails'
 import {NavLink } from 'react-router-dom'
+import CocktailCard from './CocktailCard'
 
 import styles from './Cocktails.module.css'
 
@@ -16,6 +17,7 @@ const CocktailsContainer = () => {
   const handleDelete = (id) => {
 
    dispatch(deleteCocktail(id))
+   
 
   }
   
@@ -28,18 +30,7 @@ return (
   <div className={styles.cocktailMain}>
    {cocktails && (
           <div className={styles.cocktailContainer}>
-            {cocktails.map((cocktail)=>(
-              <div className={styles.actualCocktail}>
-                <div className={styles.cocktailName} key={cocktail.id}>{cocktail.name}</div> 
-               <img key={cocktail.id}
-               style={{ width: "200px" }}
-               src={cocktail.imageUrl}
-               alt="profile"
-             />
-            <button onClick={()=>handleDelete(cocktail.id)}>Delete</button>
-            <NavLink to={`/edit/${cocktail.id}`}><button>Edit</button></NavLink>
-             </div>
-            ))}
+            {cocktails.map((cocktail)=><CocktailCard cocktail={cocktail} key={cocktail.id}/>)}
           </div>
         )}
   </div>
