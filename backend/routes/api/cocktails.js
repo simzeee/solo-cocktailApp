@@ -46,8 +46,7 @@ router.patch('/:id', asyncHandler(async (req, res)=>{
 
 router.delete("/:id", asyncHandler(async (req, res)=>{
   const id = req.params.id
-  // console.log("LOOK HERE HERE HERE", id)
-  console.log(req.params)
+
   const cocktailToDelete = await Cocktail.findByPk(id)
 
 
@@ -57,8 +56,7 @@ router.delete("/:id", asyncHandler(async (req, res)=>{
   } else {
     console.log('that is not there')
   }
-
-
+  
 }))
 
 // router.post(

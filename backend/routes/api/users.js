@@ -1,5 +1,6 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const bcrypt = require('bcryptjs')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -31,20 +32,6 @@ const validateSignup = [
 ];
 
 
-// router.post(
-//   '/',
-//   validateSignup,
-//   asyncHandler(async (req, res) => {
-//     const { email, password, username } = req.body;
-//     const user = await User.signup({ email, username, password });
-
-//     await setTokenCookie(res, user);
-
-//     return res.json({
-//       user,
-//     });
-//   }),
-// );
 
 router.post(
   "/",
@@ -70,19 +57,57 @@ router.post(
 
 router.patch('/:id', asyncHandler(async (req, res) =>{
   const id = req.params.id
-  console.log("USER ID RIGHT HERE", id)
 
-  const {email, password, username, profileImageUrl} = req.body
-
+  const {email, password, username} = req.body
   const userToUpdate = await User.findByPk(id)
 
-  await userToUpdate.update({
-    email, password, username, profileImageUrl
-  })
+  let payload = {}
+
+  if (email) payload.email = email
+  if (username) payload.username = username
+  if (password) payload.hashedPassword = bcrypt.hashSync(password)
+
+  await userToUpdate.update(
+    payload
+  )
 
   return res.json(userToUpdate)
 
 }))
 
+router.patch('/withImage/:id', singleMulterUpload('image'), asyncHandler(async (req, res) =>{
+  const id = req.params.id
+
+  const {email, password, username} = req.body
+  const profileImageUrl	= await singlePublicFileUpload(req.file)
+  const userToUpdate = await User.findByPk(id)
+
+  let payload = {}
+
+  if (email) payload.email = email
+  if (username) payload.username = username
+  if (req.file) payload.profileImageUrl = profileImageUrl
+  if (password) payload.hashedPassword = bcrypt.hashSync(password)
+
+  await userToUpdate.update(
+    payload
+  )
+
+  return res.json(userToUpdate)
+
+}))
+
+router.delete("/:id", asyncHandler(async (req, res) =>{
+  const id = req.params.id
+
+  const userToDelete = await User.findByPk(id)
+
+  if( userToDelete){
+    await userToDelete.destroy()
+    return res.json(id)
+  }else {
+    console.log('No user found')
+  }
+}))
 
 module.exports = router;
