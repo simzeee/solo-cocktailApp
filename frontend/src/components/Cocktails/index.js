@@ -37,7 +37,7 @@ return (
                alt="profile"
              />
             <button onClick={()=>handleDelete(cocktail.id)}>Delete</button>
-            <NavLink to="/edit"><button>Edit</button></NavLink>
+            <NavLink to={`/edit/${cocktail.id}`}><button>Edit</button></NavLink>
              </div>
             ))}
           </div>

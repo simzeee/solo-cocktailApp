@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editCocktail } from '../../store/cocktails';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const EditCocktailForm = () => {
-
+const {cocktailId} = useParams()
 const dispatch = useDispatch();
 const history = useHistory();
 
@@ -15,7 +15,7 @@ const [classic, setClassic] = useState(true);
 
 const sessionUser = useSelector((state) => state.session.user);
 const userId = sessionUser.id;
-const cocktailId = useSelector((state) => state.cocktailId)
+// const cocktailId = useSelector((state) => state.cocktailId)
 
 const updateName = (e) => setName(e.target.value);
 const updateDescription = (e) => setDescription(e.target.value);
@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
 
   let editedCocktail = await dispatch(editCocktail(payload));
   if (editedCocktail) {
-    history.push(`/cocktails/${editedCocktail.cocktail.id}`);
+    history.push(`/cocktails/${editedCocktail.id}`);
   }
 }
 

@@ -74,7 +74,7 @@ export const createCocktail = (cocktail) => async (dispatch) => {
 export const editCocktail = (cocktail) => async (dispatch) => {
   const {name, description, imageUrl, classic, userId} = cocktail
 
-  const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, //not sure about this
+  const response = await csrfFetch(`/api/cocktails/${cocktail.cocktailId}`, //not sure about this
   {
     method: 'PATCH',
     body: JSON.stringify({

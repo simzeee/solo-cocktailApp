@@ -29,7 +29,7 @@ function App() {
           <Route path='/create' exact>
           <CreateCocktailForm/>
           </Route>
-          <Route path='/edit'>
+          <Route path='/edit/:cocktailId'>
             <EditCocktailForm/>
           </Route>
         </Switch>
