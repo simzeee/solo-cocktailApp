@@ -68,7 +68,21 @@ router.post(
   })
 );
 
+router.patch('/:id', asyncHandler(async (req, res) =>{
+  const id = req.params.id
+  console.log("USER ID RIGHT HERE", id)
 
+  const {email, password, username, profileImageUrl} = req.body
+
+  const userToUpdate = await User.findByPk(id)
+
+  await userToUpdate.update({
+    email, password, username, profileImageUrl
+  })
+
+  return res.json(userToUpdate)
+
+}))
 
 
 module.exports = router;
