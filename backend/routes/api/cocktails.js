@@ -30,11 +30,12 @@ router.post('/', asyncHandler(async (req, res)=>{
 
 router.patch('/:id', asyncHandler(async (req, res)=>{
   const id = req.params.id
+  console.log("HELLO HELLO HELLO", id)
   const {name, description,imageUrl, classic} = req.body
 
   const cocktailToUpdate = await Cocktail.findByPk(id)
 
-  cocktailToUpdate.update({
+  await cocktailToUpdate.update({
     name, description, imageUrl, classic
   })
 
