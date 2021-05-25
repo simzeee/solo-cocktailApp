@@ -81,6 +81,33 @@ export const createUser = (user) => async (dispatch) => {
   dispatch(setUser(data.user));
 };
 
+
+export const editUser = (user) => async (dispatch) => {
+
+  const { images, image, username, email, password, userId } = user;
+
+
+  const response = await csrfFetch(`/api/users/${userId}`,  {
+
+    method: "PATCH",
+    body: JSON.stringify({
+      images,
+      image,
+      username,
+      email,
+      password,
+      userId
+    })
+  })
+  
+  if(response.ok){
+    const editedUser = await response.json()
+    dispatch(setUser(editedUser))
+    return editedUser
+  }
+
+}
+
 export const logout = () => async (dispatch) =>{
   const response = await csrfFetch('/api/session', {
     method: 'DELETE',
