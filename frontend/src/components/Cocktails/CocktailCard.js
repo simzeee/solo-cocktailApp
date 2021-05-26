@@ -8,8 +8,6 @@ import { useEffect, useRef, useState } from 'react'
 const CocktailCard = ({ cocktail }) => {
   const dispatch = useDispatch();
 
-  const [isActive, setIsActive] = useState(false)
-
   const parent = useRef()
   const child = useRef()
 

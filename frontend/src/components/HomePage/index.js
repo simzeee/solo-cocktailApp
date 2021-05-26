@@ -5,7 +5,7 @@ function HomePage(){
   return(
     <div className={styles.signContainer}>
   <h1 className={styles.greeting}>
-    <NavLink to="/cocktails">5'Oclock Somewhere</NavLink>
+    <NavLink to="/cocktails">Five O'clock Somewhere</NavLink>
   </h1>
   </div>
   )

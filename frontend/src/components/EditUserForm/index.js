@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import * as sessionActions from "../../store/session";
-import { editUser } from "../../store/session";
-import { deleteUser } from "../../store/session"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import * as sessionActions from '../../store/session';
+import { editUser } from '../../store/session';
+import { deleteUser } from '../../store/session';
+
+import styles from './EditUser.module.css'
 
 // import './SignupForm.css';
 
-
 function EditUserForm() {
-  const {userId} = useParams()
+  const { userId } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
 
@@ -23,7 +24,6 @@ function EditUserForm() {
   //   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState([]);
 
-
   // const updateUsername = (e) => setUsername(e.target.value)
   // const updateEmail = (e) => setEmail(e.target.value)
   // const updatePassword = (e) => setPassword(e.target.value)
@@ -32,40 +32,32 @@ function EditUserForm() {
     dispatch(sessionActions.logout());
   };
 
+  const handleDelete = (id) => {
+    dispatch(deleteUser(id));
+    logout();
 
-const handleDelete = (id) =>{
-
-  dispatch(deleteUser(id))
-  logout()
-
-  history.push('/cocktails');
-
-
-}
+    history.push('/cocktails');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
- 
 
     const payload = {
       userId,
       username,
       email,
       password,
-      file: profileImageUrl
-    }
+      file: profileImageUrl,
+    };
     // const file = e.target.files[0];
     // if (file) setImage(file);
 
     let editedUser = dispatch(editUser(payload));
 
-    if (editedUser){
-      history.push(`/cocktails`)
+    if (editedUser) {
+      history.push(`/cocktails`);
     }
-
   };
-
-
 
   const updateFile = (e) => {
     const file = e.target.files[0];
@@ -79,41 +71,44 @@ const handleDelete = (id) =>{
   //   };
 
   return (
-    <div>
-      <h1>AWS S3 Express-React Demo</h1>
+    <div className={styles.wrapper}>
+      <div className={styles.formContainer}>
       {errors.length > 0 &&
         errors.map((error) => <div key={error}>{error}</div>)}
       <form
-        style={{ display: "flex", flexFlow: "column" }}
+        style={{ display: 'flex', flexFlow: 'column' }}
         onSubmit={handleSubmit}
       >
-        <label>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <label>
-          <input type="file" onChange={updateFile} />
-        </label>
+        <label>User Name</label>
+        <div>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        </div>
+        <label>Email</label>
+        <div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        </div>
+        <label>Password</label>
+        <div>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        </div>
+        <label>Profile Photo</label>
+        <div>
+        <input type="file" onChange={updateFile} />
         {/* <label>
             Multiple Upload
             <input 
@@ -121,23 +116,28 @@ const handleDelete = (id) =>{
               multiple
               onChange={updateFiles} />
           </label> */}
-        <button type="submit">Make Changes</button>
+          </div>
+        <button className={styles.changesButton}  type="submit">Edit</button>
       </form>
-      <div>
+      </div>
+      <div className={styles.userName}>
         {user && (
           <div>
-            <h1>{user.username}</h1>
+            <h2>Your Name:</h2>
+            <h2>{user.username}</h2>
             <img
-              style={{ width: "150px" }}
+              style={{ width: '150px' }}
               src={user.profileImageUrl}
               alt="profile"
             />
           </div>
         )}
+      <div>
+      <button className={styles.changesButton} onClick={() => handleDelete(user.id)}>Delete</button>
       </div>
-        <button onClick={()=>handleDelete(user.id)}>Delete</button>
+      </div>
     </div>
   );
-};
+}
 
 export default EditUserForm;

@@ -1,0 +1,70 @@
+.wrapper{
+  display: flex;
+  /* background-color: royalblue; */
+  height: 50rem;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: 200px;
+}
+
+.formContainer {
+  height: 300px;
+  display: flex;
+  justify-content: center; 
+  /* height: 200px; */
+  margin-bottom: 300px;
+  
+}
+
+form {
+  color: rgba(255, 255, 255, 0.783);
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(94, 94, 94, 0.872);
+  height: 400px;
+  padding: 40px 100px 50px 100px;
+  border: 4px double rgba(245, 245, 245, 0.605);
+  box-shadow: 3px 2px rgba(245, 245, 245, 0.687);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  /* margin-bottom: 25px; */
+  margin-top: 5px;
+  padding: 15px;
+}
+
+.userName{
+  color: rgba(255, 255, 255, 0.783);
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(94, 94, 94, 0.872);
+  /* height: 400px; */
+  padding: 40px 100px 50px 100px;
+  border: 4px double rgba(245, 245, 245, 0.605);
+  box-shadow: 3px 2px rgba(245, 245, 245, 0.687);
+  margin-bottom: 105px;
+}
+
+.changesButton {
+  margin-top: 25px;
+  width: 92px;
+  height: 38px;
+  border-radius: 8px;
+  background-color: rgba(212, 222, 227, 0.886);
+  font-size: large;
+  padding: 0 4px 0 4px
+}
+
+.changesButton:hover{
+  background-color: rgb(163, 190, 196);
+  color: white;
+}

@@ -43,6 +43,8 @@ function ProfileButton({ user }) {
         <div className="profile-dropdown">
           <div>{user.username}</div>
           <div>{user.email}</div>
+          
+          <NavLink to={`/editUser/${user.id}`}><img className={styles.profilePicture} src={user.profileImageUrl} alt="profile"></img></NavLink>
           <NavLink to={`/editUser/${user.id}`}><button>Edit Profile</button></NavLink>
           <div>
             <button onClick={logout}>Log Out</button>
