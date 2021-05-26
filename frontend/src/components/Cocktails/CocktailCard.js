@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Cocktails.module.css';
 import { deleteCocktail } from '../../store/cocktails';
 import CocktailDescription from '../CocktailDescription';
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const CocktailCard = ({ cocktail }) => {
   const dispatch = useDispatch();
+
+  const [isActive, setIsActive] = useState(false)
 
   const parent = useRef()
   const child = useRef()
@@ -17,12 +19,16 @@ const CocktailCard = ({ cocktail }) => {
 
   useEffect(()=>{
 
-    if(parent.current){
+    if(parent.current && child.current){
       parent.current.onmouseover = () =>{
-        console.log('working')
+        child.current.style.height = '200px'
+      }
+      parent.current.onmouseleave = () =>{
+       child.current.style.height = "0px"
       }
     }
 
+    
   }, [parent])
 
   return (
@@ -37,8 +43,8 @@ const CocktailCard = ({ cocktail }) => {
         </NavLink>
       </div>
       </div>
-      <div className={styles.cocktailDescription}>
-        <CocktailDescription cocktail={cocktail} key={cocktail.id} />
+      <div ref={child} className={styles.cocktailDescription}>
+        <CocktailDescription props={{cocktail}} key={cocktail.id} />
       </div>
     </div>
   );
