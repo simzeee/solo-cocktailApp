@@ -1,5 +1,10 @@
 body{
   background-color: rgb(143, 143, 143);
+  /* background: url(../../images/abstract-3592117_1920.jpg) no-repeat center center fixed; */
+  /* background: url(../../images/williams-and-graham-featured-L.jpeg) no-repeat center center fixed; */
+  /* background: url(../../images/nyc-dark-bar.jpeg) no-repeat center center fixed; */
+  background: url(../../images/dark-hip-buildings.jpeg) no-repeat center center fixed;
+  background-size: cover;
 }
 
 .cocktailMain {

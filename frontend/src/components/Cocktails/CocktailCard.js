@@ -19,7 +19,7 @@ const CocktailCard = ({ cocktail }) => {
 
     if(parent.current){
       parent.current.onmouseover = () =>{
-        console.log('poop')
+        console.log('working')
       }
     }
 

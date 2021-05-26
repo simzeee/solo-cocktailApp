@@ -8,6 +8,7 @@ import CocktailsContainer from "./components/Cocktails";
 import CreateCocktailForm from "./components/CocktailsCreateForm"
 import EditCocktailForm from "./components/EditCocktailForm";
 import EditUserForm from './components/EditUserForm'
+import HomePage from './components/HomePage'
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path="/" exact>
+        <HomePage/>
+          </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>

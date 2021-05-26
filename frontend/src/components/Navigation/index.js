@@ -13,6 +13,7 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <>
+      {/* <NavLink to='/'>Home</NavLink> */}
       <NavLink to="/create">Create</NavLink>
       <ProfileButton user={sessionUser} />
       </>
@@ -31,6 +32,7 @@ function Navigation({ isLoaded }){
       <div className={styles.navContainer}>
 
         <div className={styles.navContainer}>
+        <NavLink to='/'>Home</NavLink>
         <NavLink exact to="/cocktails">Cocktails</NavLink>
         {isLoaded && sessionLinks}
         </div>
