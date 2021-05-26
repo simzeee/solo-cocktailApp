@@ -14,7 +14,7 @@ a {
 .navContainer {
   /* border: solid 2px; */
   
-  background-color: black;
+  background-color: rgb(41, 41, 41);
   opacity: .78;
   border-radius: 5px;
   height: 40px;

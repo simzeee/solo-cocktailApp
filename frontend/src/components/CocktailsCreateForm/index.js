@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createCocktail } from '../../store/cocktails';
+import styles from './Form.module.css'
 
 
 
@@ -52,21 +53,30 @@ const CreateCocktailForm = () => {
   };
 
   return (
+    <div className={styles.wrapper}>
+    <div className={styles.formContainer}>
     <form onSubmit={handleSubmit}>
       <label>
         Name
-        <input type="text" value={name} onChange={updateName} />
       </label>
+        <div>
+        <input type="text" value={name} onChange={updateName} />
+        </div>
       <label>
         Description
+      </label>
+        <div>
         <input type="text" value={description} onChange={updateDescription} />
-      </label>
+     </div>
       <label>
-        Image
-        <input type="text" value={imageUrl} onChange={updateImageUrl} />
+        Image Url
       </label>
+        <div>
+        <input type="text" value={imageUrl} onChange={updateImageUrl} />
+        </div>
       <label>
         Classic:
+        </label>
         <input
           type="radio"
           value="yes"
@@ -74,9 +84,9 @@ const CreateCocktailForm = () => {
           checked={classic === 'yes'}
           onChange={(e) => setClassic('yes')}
         />
-      </label>
       <label>
         Specialty:
+        </label>
         <input
           type="radio"
           value="no"
@@ -84,9 +94,12 @@ const CreateCocktailForm = () => {
           checked={classic === 'no'}
           onChange={(e) => setClassic('no')}
         />
-      </label>
-      <button type="submit">Submit</button>
+        <div>
+      <button className={styles.createButton} type="submit">Create</button>
+      </div>
     </form>
+    </div>
+    </div>
   );
 };
 
