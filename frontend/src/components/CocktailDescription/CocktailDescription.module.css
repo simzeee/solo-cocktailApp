@@ -1,4 +1,14 @@
-.cocktailDescription {
-  position: absolute;
-  background-color: red;
+p {
+display: flex;
+justify-content: right;
+}
+
+.contentDescription {
+  display: flex;
+  /* opacity: 0; */
+  color: aliceblue;
+  background-color: rgb(109, 109, 109);
+  border-radius: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
 }

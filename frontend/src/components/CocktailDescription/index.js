@@ -1,13 +1,13 @@
-import styles from './CocktailDescription.module.css'
+import styles from './CocktailDescription.module.css';
 
+const CocktailDescription = ({ cocktail }) => {
+  return (
+    <div className={styles.description}>
+      <div className={styles.contentDescription}>
+        <p>{cocktail.description}</p>
+        </div>
+    </div>
+  );
+};
 
-
-const CocktailDescription = ({cocktail}) => {
-
-  return(
-    <div className={styles.description}>{cocktail.description}</div>
-  )
-
-}
-
-export default CocktailDescription
+export default CocktailDescription;
