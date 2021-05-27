@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
-import styles from './ProfileButton.modules.css'
+import styles from './ProfileButton.modules.css';
 
 function ProfileButton({ user }) {
-
   // const sessionUser = useSelector((state) => state.session.user);
 
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
-  
+
   useEffect(() => {
     if (!showMenu) return;
 
@@ -25,8 +24,8 @@ function ProfileButton({ user }) {
     };
 
     document.addEventListener('click', closeMenu);
-  
-    return () => document.removeEventListener("click", closeMenu);
+
+    return () => document.removeEventListener('click', closeMenu);
   }, [showMenu]);
 
   const logout = (e) => {
@@ -40,12 +39,15 @@ function ProfileButton({ user }) {
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
-        <div className="profile-dropdown">
+        <div id="dropdown" className="profile-dropdown">
           <div>{user.username}</div>
           <div>{user.email}</div>
-          
-          <NavLink to={`/editUser/${user.id}`}><img className={styles.profilePicture} src={user.profileImageUrl} alt="profile"></img></NavLink>
-          <NavLink to={`/editUser/${user.id}`}><button>Edit Profile</button></NavLink>
+          <NavLink to={`/editUser/${user.id}`}>
+            <img src={user.profileImageUrl} alt="profile"></img>
+          </NavLink>
+          <NavLink to={`/editUser/${user.id}`}>
+            <button>Edit Profile</button>
+          </NavLink>
           <div>
             <button onClick={logout}>Log Out</button>
           </div>
