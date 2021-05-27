@@ -30,13 +30,11 @@ function Navigation({ isLoaded }){
   return (
     <div className={styles.navMain}>
       <div className={styles.navContainer}>
-
-        <div className={styles.navContainer}>
+        {/* <div className={styles.navContainer}> */}
         <NavLink to='/'>Home</NavLink>
         <NavLink exact to="/cocktails">Cocktails</NavLink>
         {isLoaded && sessionLinks}
-        </div>
-
+        {/* </div> */}
     </div>
     </div>
   );

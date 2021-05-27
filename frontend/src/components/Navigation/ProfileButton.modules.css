@@ -1,11 +1,12 @@
-.profile-dropdown {
+#dropdown {
   display: flex;
   flex-direction: column;
   opacity: 1;
   /* margin-top: 100px; */
   margin-top: 28%;
   position: relative;
-  background-color: honeydew;
+  background-color: rgba(240, 255, 240, 1);
+  /* background-color: red; */
   height: 300px;
   border: 4px double rgb(29, 29, 29);
   padding: 5px;
