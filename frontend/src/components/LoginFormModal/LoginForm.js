@@ -1,26 +1,25 @@
-import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
-import {useHistory} from "react-router-dom"
+import React, { useState } from 'react';
+import * as sessionActions from '../../store/session';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
-const history= useHistory()
+  const history = useHistory();
 
   const dispatch = useDispatch();
-  const [credential, setCredential] = useState("");
-  const [password, setPassword] = useState("");
+  const [credential, setCredential] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login({ credential, password })).catch(
-      async (res) => {
+    return dispatch(sessionActions.login({ credential, password }))
+      .then(history.push('/cocktails'))
+      .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
-        else{history.push('/cocktails')}
-      }
-    );
+      });
   };
 
   return (

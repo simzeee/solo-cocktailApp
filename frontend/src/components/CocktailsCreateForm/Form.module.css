@@ -12,17 +12,20 @@
   justify-content: center; 
   /* height: 200px; */
   margin-bottom: 300px;
+  max-width: 390px;
+
   
 }
 
-form {
+.createCocktailForm {
   color: rgba(255, 255, 255, 0.783);
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
   background-color: rgba(94, 94, 94, 0.872);
-  height: 400px;
+  height: 450px;
+  max-width: 390px;
   padding: 40px 100px 50px 100px;
   border: 4px double rgba(245, 245, 245, 0.605);
   box-shadow: 3px 2px rgba(245, 245, 245, 0.687);
@@ -51,4 +54,28 @@ label {
 .createButton:hover{
   background-color: rgb(163, 190, 196);
   color: white;
+}
+
+.editButton{
+  margin-top: 20px;
+  width: 70px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: rgba(212, 222, 227, 0.886);
+  font-size: large;
+  padding: 0 4px 0 4px
+}
+
+.editButton:hover{
+  background-color: rgb(163, 190, 196);
+  color: white;
+}
+
+textarea {
+  height: 70px;
+  max-height: 70px;
+  min-height: 45px;
+  max-width: 181px;
+  min-width: 160px;
+
 }

@@ -61,7 +61,7 @@ const handleSubmit = async (e) => {
         Description
       </label>
         <div>
-        <input type="text" value={description} onChange={updateDescription} />
+        <textarea type="text" value={description} onChange={updateDescription} />
      </div>
       <label>
         Image Url
@@ -90,7 +90,7 @@ const handleSubmit = async (e) => {
           onClick={(e) => setClassic(e.target.value)}
         />
         <div>
-      <button className={styles.createButton} type="submit">Edit</button>
+      <button className={styles.editButton} type="submit">Edit</button>
       </div>
     </form>
     </div>

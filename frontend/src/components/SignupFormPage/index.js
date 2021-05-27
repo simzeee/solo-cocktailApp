@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import * as sessionActions from '../../store/session';
+import * as sessionActions from '../../store/session';
 import { createUser } from '../../store/session';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 import styles from './SignupForm.module.css';
 
 function SignupFormPage() {
   const history = useHistory();
 
+  const [credential, setCredential] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +21,10 @@ function SignupFormPage() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
+  if(user){
+    return <Redirect to='/cocktails'></Redirect>
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let newErrors = [];
@@ -30,15 +35,18 @@ function SignupFormPage() {
         setPassword('');
         setImage(null);
       })
+      // .then(dispatch(sessionActions.login({ credential ,password})))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
           newErrors = data.errors;
+          newErrors = newErrors.filter(error => {
+            return error !== 'Invalid value'
+          })
+          // console.log(newErrors)
           setErrors(newErrors);
-        }
-        else{history.push('/cocktails')}
+        } 
       });
-      
   };
 
   const updateFile = (e) => {
@@ -53,68 +61,70 @@ function SignupFormPage() {
   //   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.formContainer}>
-        <div>
+    <div className={styles.wrapperSignup}>
+      <div className={styles.formContainerSignup}>
+        <div className={styles.errorsContainer}>
+          <h2>Welcome!</h2>
           {errors.length > 0 &&
             errors.map((error) => <div key={error}>{error}</div>)}
-          <form
-            style={{ display: 'flex', flexFlow: 'column' }}
-            onSubmit={handleSubmit}
-          >
-            <label>
-              <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </label>
-            <label>
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-            <label>
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-            <div>
-              <label>
-                <input type="file" onChange={updateFile} />
-              </label>
-            </div>
-            {/* <label>
+        </div>
+      
+      <form
+        style={{ display: 'flex', flexFlow: 'column' }}
+        onSubmit={handleSubmit}
+      >
+        <label>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <label>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <label>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <div>
+          <label>
+            <input type="file" onChange={updateFile} />
+          </label>
+        </div>
+        {/* <label>
             Multiple Upload
             <input 
               type="file"
               multiple
               onChange={updateFiles} />
           </label> */}
-            <button className={styles.changesButton} type="submit">
-              Create User
-            </button>
-          </form>
+        <button className={styles.changesButton} type="submit">
+          Create User
+        </button>
+      </form>
+      </div>
+      <div>
+        {user && (
           <div>
-            {user && (
-              <div>
-                <h1>{user.username}</h1>
-                <img
-                  style={{ width: '150px' }}
-                  src={user.profileImageUrl}
-                  alt="profile"
-                />
-              </div>
-            )}
+            <h1>{user.username}</h1>
+            <img
+              style={{ width: '150px' }}
+              src={user.profileImageUrl}
+              alt="profile"
+            />
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

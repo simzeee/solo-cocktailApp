@@ -45,14 +45,14 @@ const CreateCocktailForm = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.formContainer}>
-        <form onSubmit={handleSubmit}>
+        <form className={styles.createCocktailForm} onSubmit={handleSubmit}>
           <label>Name</label>
           <div>
             <input type="text" value={name} onChange={updateName} />
           </div>
           <label>Description</label>
           <div>
-            <input
+            <textarea
               type="text"
               value={description}
               onChange={updateDescription}
