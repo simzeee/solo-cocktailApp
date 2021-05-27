@@ -13,12 +13,13 @@ const sessionUser = useSelector((state) => state.session.user);
 const userId = sessionUser.id;
 
 const currentCocktail = useSelector((state) => state.cocktails[cocktailId])
+console.log(currentCocktail.classic)
 
 
 const [name, setName] = useState(currentCocktail.name);
 const [description, setDescription] = useState(currentCocktail.description);
 const [imageUrl, setImageUrl] = useState(currentCocktail.imageUrl);
-const [classic, setClassic] = useState(currentCocktail.classic ? 'classic' : 'specialty');
+const [classic, setClassic] = useState(currentCocktail.classic ? 'true' : 'false');
 
 // const cocktailId = useSelector((state) => state.cocktailId)
 
@@ -76,8 +77,8 @@ const handleSubmit = async (e) => {
           type="radio"
           value='classic'
           name="classic"
-          checked={classic === 'classic'}
-          onClick={(e) => setClassic(e.target.value)}
+          checked={classic === 'true'}
+          onChange={(e) => setClassic(true)}
         />
       <label>
         Specialty:
@@ -86,8 +87,8 @@ const handleSubmit = async (e) => {
           type="radio"
           value='specialty'
           name="specialty"
-          checked={classic === 'specialty'}
-          onClick={(e) => setClassic(e.target.value)}
+          checked={classic === 'false'}
+          onChange={(e) => setClassic(false)}
         />
         <div>
       <button className={styles.editButton} type="submit">Edit</button>
