@@ -22,7 +22,7 @@ function EditUserForm() {
   const [profileImageUrl, setImage] = useState('');
   // for multiple file upload
   //   const [images, setImages] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errors] = useState([]);
 
   // const updateUsername = (e) => setUsername(e.target.value)
   // const updateEmail = (e) => setEmail(e.target.value)

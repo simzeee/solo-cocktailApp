@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCocktail } from '../../store/cocktails';
-import { NavLink } from 'react-router-dom';
 import CocktailCard from './CocktailCard';
-import CocktailDescription from '../CocktailDescription/index';
 
 import styles from './Cocktails.module.css';
 

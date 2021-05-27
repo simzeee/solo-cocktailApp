@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './Cocktails.module.css';
 import { deleteCocktail } from '../../store/cocktails';
 import CocktailDescription from '../CocktailDescription';
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 const CocktailCard = ({ cocktail }) => {
   const dispatch = useDispatch();

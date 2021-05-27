@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editCocktail } from '../../store/cocktails';
 import { useHistory, useParams } from 'react-router-dom';
@@ -9,18 +9,23 @@ const {cocktailId} = useParams()
 const dispatch = useDispatch();
 const history = useHistory();
 
-const [name, setName] = useState('');
-const [description, setDescription] = useState('');
-const [imageUrl, setImageUrl] = useState('');
-const [classic, setClassic] = useState(true);
-
 const sessionUser = useSelector((state) => state.session.user);
 const userId = sessionUser.id;
+
+const currentCocktail = useSelector((state) => state.cocktails[cocktailId])
+
+
+const [name, setName] = useState(currentCocktail.name);
+const [description, setDescription] = useState(currentCocktail.description);
+const [imageUrl, setImageUrl] = useState(currentCocktail.imageUrl);
+const [classic, setClassic] = useState(currentCocktail.classic ? 'classic' : 'specialty');
+
 // const cocktailId = useSelector((state) => state.cocktailId)
 
 const updateName = (e) => setName(e.target.value);
 const updateDescription = (e) => setDescription(e.target.value);
 const updateImageUrl = (e) => setImageUrl(e.target.value);
+// const updateClassic = (e) => setClassic(e.target.value)
 
 
 const handleSubmit = async (e) => {
@@ -69,20 +74,20 @@ const handleSubmit = async (e) => {
         </label>
         <input
           type="radio"
-          value="yes"
+          value='classic'
           name="classic"
-          checked={classic === 'yes'}
-          onChange={(e) => setClassic('yes')}
+          checked={classic === 'classic'}
+          onClick={(e) => setClassic(e.target.value)}
         />
       <label>
         Specialty:
         </label>
         <input
           type="radio"
-          value="no"
+          value='specialty'
           name="specialty"
-          checked={classic === 'no'}
-          onChange={(e) => setClassic('no')}
+          checked={classic === 'specialty'}
+          onClick={(e) => setClassic(e.target.value)}
         />
         <div>
       <button className={styles.createButton} type="submit">Edit</button>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
 import { createUser } from '../../store/session';
-import { useHistory, userHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import styles from './SignupForm.module.css';
 

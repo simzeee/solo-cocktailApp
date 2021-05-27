@@ -2,7 +2,7 @@ import styles from './CocktailDescription.module.css';
 
 const CocktailDescription = ({ props }) => {
 
-  const {child, cocktail} = props
+  const { cocktail} = props
 
   return ( 
       <div  className={styles.contentDescription}>
