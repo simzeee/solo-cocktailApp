@@ -13,7 +13,7 @@ const sessionUser = useSelector((state) => state.session.user);
 const userId = sessionUser.id;
 
 const currentCocktail = useSelector((state) => state.cocktails[cocktailId])
-console.log(currentCocktail.classic)
+// console.log(currentCocktail.classic)
 
 
 const [name, setName] = useState(currentCocktail.name);
